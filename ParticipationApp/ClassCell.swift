@@ -9,7 +9,6 @@
 import UIKit
 
 class ClassCell: UICollectionViewCell {
-
+    
     @IBOutlet weak var classNameLabel: UILabel!
-
 }

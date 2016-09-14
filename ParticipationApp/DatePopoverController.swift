@@ -12,7 +12,6 @@ protocol DateDelegate {
     func dateIsChanged(dateChosen: String)
 }
 
-
 class DatePopoverController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var dateTableView: UITableView!
@@ -23,13 +22,13 @@ class DatePopoverController: UIViewController, UITableViewDelegate, UITableViewD
     var dateDel: DateDelegate?
     let defaults = NSUserDefaults.standardUserDefaults()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let chosenFilter = defaults.objectForKey("selection") {
             
             chosen = chosenFilter as! String
         }
+        
         self.dateTableView.scrollEnabled = false
     }
     

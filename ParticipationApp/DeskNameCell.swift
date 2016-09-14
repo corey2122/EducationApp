@@ -9,6 +9,6 @@
 import UIKit
 
 class DeskNameCell: UICollectionViewCell {
-    @IBOutlet weak var deskNameLabel: UILabel!
     
+    @IBOutlet weak var deskNameLabel: UILabel!
 }

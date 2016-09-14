@@ -12,22 +12,22 @@ class DeskViewController: UICollectionViewController, UIGestureRecognizerDelegat
     @IBOutlet weak var deskTextField: UITextField!
     @IBOutlet weak var editButton: UIBarButtonItem!
     
+    @IBOutlet weak var addButton: UIBarButtonItem!
     var random = -1
     var seatArray = [String]()
     var newVariable = String ()
     var flow = UICollectionViewFlowLayout()
     var editDeleteButton: Bool = false
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = "\(newVariable)"
-        seatArray = ["Corey Schwarzkopf", "Alfred H.", "Chris", "Janet P.", "Samson Rolf", "Miranna Kutrhapualie", "Paul", "Sandy", "Smith", "", "", "", "Corey Schwarzkopf", "Alfred H.", "Chris", "Janet P.", "Samson Rolf", "Miranna Kutrhapualie", "Paul", "Sandy", "Smith", "", "", "", "Corey Schwarzkopf", "Alfred H.", "Chris", "Janet P.", "", ""]
+        seatArray = ["Corey Schwarzkopf", "Alfred H.", "Chris", "Janet P.", "Samson Rolf", "Miranna Kutrhapualie", "Paul", "Sandy", "Smith", "Randy", "Jones", "Peach", "Core", "Al", "Che", "Paz", "Rolf Samson", "Eric Withrop", "Mike Pot", "Tanner Fron", "Cat Paulson", "Jan", "Pam", "Sam", "Tom Randson", "Olaf Anders", "Viva LeClaire", "Pierre Toms", "S.", "Patrick"]
         
         collectionView!.allowsMultipleSelection = true;
 
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DeskViewController.rotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DeskViewController.rotated), name:     UIDeviceOrientationDidChangeNotification, object: nil)
 
         flow = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
         flow.sectionInset = UIEdgeInsetsMake(25, 10, 10, 10)
@@ -132,7 +132,9 @@ class DeskViewController: UICollectionViewController, UIGestureRecognizerDelegat
     
     //Alert view for student name
     @IBAction func AddSeatButton(sender: UIBarButtonItem) {
-        let alertController = UIAlertController(title: "Student Name:", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        if !editDeleteButton {
+            
+            let alertController = UIAlertController(title: "Student Name:", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addTextFieldWithConfigurationHandler () { (textField:UITextField!) -> Void in  textField.autocorrectionType = UITextAutocorrectionType.Yes;
             textField.autocapitalizationType = UITextAutocapitalizationType.Words
         }
@@ -154,6 +156,12 @@ class DeskViewController: UICollectionViewController, UIGestureRecognizerDelegat
         }))
         
         self.presentViewController(alertController, animated: true, completion: nil)
+        } else {
+            editDeleteButton = !editDeleteButton
+            addButton.title = "Add"
+            self.editButton.title = "Select"
+            collectionView?.reloadData()
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -253,8 +261,10 @@ override func collectionView(collectionView: UICollectionView, didDeselectItemAt
         editDeleteButton = !editDeleteButton
         if editDeleteButton {
             self.editButton.title = "Delete"
+            addButton.title = "Cancel"
         } else {
             self.editButton.title = "Select"
+            addButton.title = "Add"
             
             let paths = (collectionView?.indexPathsForSelectedItems())! as [NSIndexPath]
                 let sortedArray = paths.sort() {$0.row > $1.row}
@@ -278,6 +288,5 @@ extension DeskViewController: UICollectionViewDelegateFlowLayout {
         flow.minimumLineSpacing = 45
         
         return collectionViewSize
-        
     }
 }

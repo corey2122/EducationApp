@@ -28,7 +28,6 @@ class StudentViewController: UIViewController, UIPopoverPresentationControllerDe
             self.navigationItem.title = chosenFilter as? String
         }
         
-    
         let borderColor : UIColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
         pointsViewLabel.layer.borderWidth = 0.5
         pointsViewLabel.layer.borderColor = borderColor.CGColor
@@ -62,10 +61,9 @@ class StudentViewController: UIViewController, UIPopoverPresentationControllerDe
      func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             notesArray.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)        }
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
     }
-    
-    
     
     // create a cell for each table view row
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

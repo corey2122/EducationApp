@@ -9,8 +9,8 @@
 import UIKit
 
 class MasterViewController: UICollectionViewController {
-    
 
+    @IBOutlet weak var addCancelButton: UIBarButtonItem!
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     var editClassHour: Bool = false
     var flow = UICollectionViewFlowLayout()
@@ -115,13 +115,9 @@ extension MasterViewController {
         
         if editClassHour {
             if cell.selected == true {
-                //cell.layer.borderWidth = 10
                 cell.alpha = 1.0
-//            cell.layer.borderColor = UIColor.orangeColor().CGColor
-//            deleteButtonTapped()
         }
-        }
-        else {
+        } else {
             self.performSegueWithIdentifier("MySegue", sender: cell)
         }
     }
@@ -138,8 +134,11 @@ extension MasterViewController {
         
         if editClassHour {
             self.deleteButton.title = "Delete"
+            addCancelButton.title = "Cancel"
+                
         } else {
             self.deleteButton.title = "Select"
+            addCancelButton.title = "Add"
             print(dataArray)
             
             let paths = (collectionView?.indexPathsForSelectedItems())! as [NSIndexPath]
@@ -160,6 +159,9 @@ extension MasterViewController {
 
     //Mark - Button to Alert View for Class Name
     @IBAction func AddButton(sender: UIBarButtonItem) {
+        
+        if !editClassHour {
+        
         let alertController = UIAlertController(title: "Class Name", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         
         alertController.addTextFieldWithConfigurationHandler() { (textField:UITextField!) -> Void in
@@ -180,8 +182,13 @@ extension MasterViewController {
         }))
         
         self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
+        } else {
+            editClassHour = !editClassHour
+            addCancelButton.title = "Add"
+            self.deleteButton.title = "Select"
+            collectionView?.reloadData()
+        }
+}
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         //Prepare for segue and pass data
         if segue.identifier == "MySegue" {
