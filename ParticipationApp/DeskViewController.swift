@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class DeskViewController: UICollectionViewController, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate, PresentationStudentDelegate  {
     @IBOutlet weak var deskTextField: UITextField!
@@ -14,17 +15,18 @@ class DeskViewController: UICollectionViewController, UIGestureRecognizerDelegat
     
     @IBOutlet weak var addButton: UIBarButtonItem!
     var random = -1
-    var seatArray = [String]()
-    var newVariable = String ()
+    var activeClassKey = String()
+    var key = String()
+    var newVariable = String()
     var flow = UICollectionViewFlowLayout()
     var editDeleteButton: Bool = false
-    
+    var people = [Person]()
+    var coreDataManager = CoreDataManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationItem.title = "\(newVariable)"
-        seatArray = ["Corey Schwarzkopf", "Alfred H.", "Chris", "Janet P.", "Samson Rolf", "Miranna Kutrhapualie", "Paul", "Sandy", "Smith", "Randy", "Jones", "Peach", "Core", "Al", "Che", "Paz", "Rolf Samson", "Eric Withrop", "Mike Pot", "Tanner Fron", "Cat Paulson", "Jan", "Pam", "Sam", "Tom Randson", "Olaf Anders", "Viva LeClaire", "Pierre Toms", "S.", "Patrick"]
-        
+        print ("activeClassKey", activeClassKey)
         collectionView!.allowsMultipleSelection = true;
 
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DeskViewController.rotated), name:     UIDeviceOrientationDidChangeNotification, object: nil)
@@ -33,25 +35,55 @@ class DeskViewController: UICollectionViewController, UIGestureRecognizerDelegat
         flow.sectionInset = UIEdgeInsetsMake(25, 10, 10, 10)
     }
         
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        people = coreDataManager.fetchStudent(activeClassKey: activeClassKey)
         super.viewWillAppear(true)
         self.view.alpha = 1.0
-//        rotated()
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.alpha = 1.0
     }
     
-    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         self.view.alpha = 0.1
     }
     
+     func studentFilePressed() {
+        print("student file 1")
+        self.performSegue(withIdentifier: "PopoverSegue", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //Prepare for segue and pass data
+        if segue.identifier == "PopoverSegue" {
+//            let indexPath = collectionView?.indexPath(for: sender as! DeskNameCell)
+
+            let studentName = people[random]
+            let svc = segue.destination as! StudentViewController;
+            svc.nameOfStudent = (studentName.value(forKey: "name") as! String?)!
+            print("peformStudentFile")
+        }
+    }
+
+
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        //Prepare for segue and pass data
+//        print ("popover")
+//        if segue.identifier == "PopSegue" {
+//            let indexPath = collectionView!.indexPath(for: sender as! DeskNameCell)
+//            let studentKey = people[(indexPath! as NSIndexPath).row]
+//            let svc = segue.destination as! PresentationStudentController;
+//            svc.activeClassKey = (studentKey.value(forKey: "key") as! String?)!
+//            svc.key = (studentKey.value(forKey: "key") as! String?)!
+//            print ("popover segue used")
+//        }
+//    }
     
 //    func rotated() {
 //        if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)) {
@@ -74,46 +106,49 @@ class DeskViewController: UICollectionViewController, UIGestureRecognizerDelegat
 //    }
     
     //Mark - PresentationStudentDelegate
-    func presentationDonePressed(ispressed: Bool) {
+    func presentationDonePressed(_ ispressed: Bool) {
         if ispressed {
             self.view.alpha = 1.0
         }
     }
     
-    func studentFilePressed() {
-        self.performSegueWithIdentifier("PopoverSegue", sender: nil)
-    }
-    
    //Mark - Random Call Button
-    @IBAction func RandomCallButton(sender: UIBarButtonItem) {
+    @IBAction func RandomCallButton(_ sender: UIBarButtonItem) {
         // reloads the visible cells, highlighting the random one
-        self.random = Int(arc4random_uniform(UInt32(self.seatArray.count)))
-        //self.collectionView!.reloadData()
-      
+        self.random = Int(arc4random_uniform(UInt32(self.people.count)))
+        self.collectionView!.reloadData()
+//        let randomPeople = people[random].name
+        //self.people.valueForKey("name") as? String
+
+        
         //Popover screen for random
-        let popoverContent = (self.storyboard?.instantiateViewControllerWithIdentifier("PresentationStudentController"))! as! PresentationStudentController
+        let popoverContent = (self.storyboard?.instantiateViewController(withIdentifier: "PresentationStudentController"))! as! PresentationStudentController
         popoverContent.presentationDelegate = self
-        popoverContent.studentName = seatArray[random]
+        popoverContent.studentName = people[random].name
+        popoverContent.key = people[random].key!
+        popoverContent.activeClassKey = activeClassKey
+//        print ("PopoverClassKey", activeClassKey)
         let nav = UINavigationController(rootViewController: popoverContent)
-        nav.modalPresentationStyle = UIModalPresentationStyle.Popover
+        nav.modalPresentationStyle = UIModalPresentationStyle.popover
         let popover = nav.popoverPresentationController
-        let bounds = UIScreen.mainScreen().bounds
+        let bounds = UIScreen.main.bounds
         let width = bounds.size.width - 150
-        popoverContent.preferredContentSize = CGSizeMake(width, 300)
+        popoverContent.preferredContentSize = CGSize(width: width, height: 300)
         popover!.delegate = self
         popover!.sourceView = self.view
-        popover!.sourceRect = CGRectMake(CGRectGetMidX(self.view.bounds), 375, 0, 0)
-        popover!.permittedArrowDirections.isEmpty
+        popover!.sourceRect = CGRect(x: self.view.bounds.midX, y: 375, width: 0, height: 0)
+//        popover!.permittedArrowDirections.isEmpty
         popover?.permittedArrowDirections = UIPopoverArrowDirection()
         popover!.delegate = self
-        self.presentViewController(nav, animated: true, completion: nil)
+        self.present(nav, animated: true, completion: nil)
     }
     
     func adaptivePresentationStyle() -> UIModalPresentationStyle {
-            return UIModalPresentationStyle.OverFullScreen
+            return UIModalPresentationStyle.overFullScreen
     }
     
-//For iphone presentation Popover screen
+// 
+//    For iphone presentation Popover screen
 //    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
 //        return UIModalPresentationStyle.None
 //    }
@@ -130,32 +165,46 @@ class DeskViewController: UICollectionViewController, UIGestureRecognizerDelegat
 //        self.dismissViewControllerAnimated(true, completion: nil)
 //   }
     
+    func randomString(length: Int) -> String {
+        let charSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        var c = charSet.characters.map { String($0) }
+        var s:String = ""
+        for _ in (1...length) {
+            s.append(c[Int(arc4random()) % c.count])
+        }
+        print (s)
+        return s
+    }
+    
     //Alert view for student name
-    @IBAction func AddSeatButton(sender: UIBarButtonItem) {
+    @IBAction func AddSeatButton(_ sender: UIBarButtonItem) {
         if !editDeleteButton {
             
-            let alertController = UIAlertController(title: "Student Name:", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addTextFieldWithConfigurationHandler () { (textField:UITextField!) -> Void in  textField.autocorrectionType = UITextAutocorrectionType.Yes;
-            textField.autocapitalizationType = UITextAutocapitalizationType.Words
+            let alertController = UIAlertController(title: "Student Name:", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addTextField () { (textField:UITextField!) -> Void in  textField.autocorrectionType = UITextAutocorrectionType.yes;
+            textField.autocapitalizationType = UITextAutocapitalizationType.words
         }
         
-        alertController.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.Default,handler: {(action) -> Void in
+        alertController.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default,handler: {(action) -> Void in
             let textf = alertController.textFields![0] as UITextField
             
             // Prints student name to desk text field
-            if let nameStr = textf.text {
+            if let nameStr = textf.text , !nameStr.isEmpty {
                 print(nameStr)
-                self.seatArray.append(nameStr)
+                self.coreDataManager.addStudentsToClass(nameStr, key: self.randomString(length: 10), activeClassKey: self.activeClassKey)
+                self.people.removeAll()
+                self.people = self.coreDataManager.fetchStudent(activeClassKey: self.activeClassKey)
+                
                 self.collectionView!.reloadData()
             }
         }))
         
-        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {(action) -> Void in
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(action) -> Void in
             
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }))
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
         } else {
             editDeleteButton = !editDeleteButton
             addButton.title = "Add"
@@ -164,29 +213,32 @@ class DeskViewController: UICollectionViewController, UIGestureRecognizerDelegat
         }
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cellDesk = collectionView.dequeueReusableCellWithReuseIdentifier("cellDesk", forIndexPath: indexPath) as! DeskNameCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellDesk = collectionView.dequeueReusableCell(withReuseIdentifier: "cellDesk", for: indexPath) as! DeskNameCell
+        let desk = people[(indexPath as NSIndexPath).row]
 
+        
         //Desk information
-        //cellDesk.deskNameLabel.text = seatArray[indexPath.row]
         cellDesk.layer.cornerRadius = cellDesk.frame.size.width/3.9
-        cellDesk.layer.shadowColor = UIColor.lightGrayColor().CGColor
-        cellDesk.layer.shadowOffset = CGSizeMake(0, 2)
+        cellDesk.layer.shadowColor = UIColor.lightGray.cgColor
+        cellDesk.layer.shadowOffset = CGSize(width: 0, height: 2)
         cellDesk.layer.shadowOpacity = 0.5
         cellDesk.layer.shadowRadius = 3
         cellDesk.clipsToBounds = false
         cellDesk.layer.masksToBounds = false
         cellDesk.layer.shouldRasterize = false
-        cellDesk.deskNameLabel.text = seatArray[indexPath.row]
+        cellDesk.deskNameLabel.text = people[indexPath.row].name
         
+        
+        cellDesk.deskNameLabel!.text = desk.value(forKey: "name") as? String
+
     
-        //Random button pushed changes color - Changed 
-        if(random == indexPath.row)  {
-           // cellDesk.backgroundColor = UIColor.purpleColor()
-            cellDesk.layer.backgroundColor = ColorManager().colorFromRGBHexString("966C4D").CGColor //light brown
+        //Random button pushed changes color - Changed
+        if(random == (indexPath as NSIndexPath).row)  {
+            cellDesk.layer.backgroundColor = ColorManager().colorFromRGBHexString("966C4D").cgColor //light brown
 
         } else {
-            cellDesk.layer.backgroundColor = ColorManager().colorFromRGBHexString("966C4D").CGColor //light brown
+            cellDesk.layer.backgroundColor = ColorManager().colorFromRGBHexString("966C4D").cgColor //light brown
         }
         
         if editDeleteButton {
@@ -198,33 +250,35 @@ class DeskViewController: UICollectionViewController, UIGestureRecognizerDelegat
         return cellDesk
     }
 
-    func collectionView(collectionView: UICollectionView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, canEditRowAtIndexPath indexPath: IndexPath) -> Bool {
     // Return false if you do not want the specified item to be editable.
         return true
     }
     
-     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.seatArray.count
+     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.people.count
     }
    
-    override func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-        let temp = seatArray[sourceIndexPath.row]
-        seatArray[sourceIndexPath.row] = seatArray[destinationIndexPath.row]
-        seatArray[destinationIndexPath.row] = temp
+//    override func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+//        let temp = people[(sourceIndexPath as NSIndexPath).row]
+//        people[(sourceIndexPath as NSIndexPath).row] = people[(destinationIndexPath as NSIndexPath).row]
+//        people[(destinationIndexPath as NSIndexPath).row] = temp
+//    }
     }
-}
+
+
 
 //Mark - CollectionView Data source
 extension DeskViewController {
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //Mark - Perform segue with identifier
-        newVariable = seatArray[indexPath.row]
+        newVariable = people[indexPath.row].name!
         
-        let celldesk = collectionView.cellForItemAtIndexPath(indexPath) as! DeskNameCell
-        print(collectionView.indexPathsForSelectedItems())
+        let celldesk = collectionView.cellForItem(at: indexPath) as! DeskNameCell
+        print(collectionView.indexPathsForSelectedItems)
         
         if editDeleteButton {
-            if celldesk.selected == true {
+            if celldesk.isSelected == true {
                 //cell.layer.borderWidth = 10
                 celldesk.alpha = 1.0
                 //            cell.layer.borderColor = UIColor.orangeColor().CGColor
@@ -232,54 +286,66 @@ extension DeskViewController {
             }
         }
         else {
-            let popoverContent = (self.storyboard?.instantiateViewControllerWithIdentifier("PresentationStudentController"))! as! PresentationStudentController
+            let popoverContent = (self.storyboard?.instantiateViewController(withIdentifier: "PresentationStudentController"))! as! PresentationStudentController
             popoverContent.presentationDelegate = self
-            popoverContent.studentName = seatArray[indexPath.row]
+            random = indexPath.row
+            popoverContent.studentName = people[(indexPath as NSIndexPath).row].value(forKey: "name") as! String?
             let nav = UINavigationController(rootViewController: popoverContent)
-            nav.modalPresentationStyle = UIModalPresentationStyle.Popover
+            nav.modalPresentationStyle = UIModalPresentationStyle.popover
+            popoverContent.key = people[indexPath.row].key!
+            popoverContent.activeClassKey = activeClassKey
             let popover = nav.popoverPresentationController
-            let bounds = UIScreen.mainScreen().bounds
+            let bounds = UIScreen.main.bounds
             let width = bounds.size.width - 150
-            popoverContent.preferredContentSize = CGSizeMake(width, 300)
+            popoverContent.preferredContentSize = CGSize(width: width, height: 300)
             popover!.delegate = self
             popover!.sourceView = self.view
-            popover!.sourceRect = CGRectMake(CGRectGetMidX(self.view.bounds), 375, 0, 0)
-            popover!.permittedArrowDirections.isEmpty
+            popover!.sourceRect = CGRect(x: self.view.bounds.midX, y: 375, width: 0, height: 0)
+//            popover!.permittedArrowDirections.isEmpty
             popover?.permittedArrowDirections = UIPopoverArrowDirection()
             popover!.delegate = self
-            self.presentViewController(nav, animated: true, completion: nil)
+            self.present(nav, animated: true, completion: nil)
         }
     }
     
-override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        print(collectionView.indexPathsForSelectedItems())
-        collectionView.cellForItemAtIndexPath(indexPath) as! DeskNameCell
-//        cellDesk.alpha = 0.5
+override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        print(collectionView.indexPathsForSelectedItems)
+//        collectionView.cellForItem(at: indexPath) as! DeskNameCell
     }
    
-    @IBAction func editButton(sender: UIBarButtonItem) {
+    @IBAction func editButton(_ sender: UIBarButtonItem) {
+        
         editDeleteButton = !editDeleteButton
+        
         if editDeleteButton {
             self.editButton.title = "Delete"
             addButton.title = "Cancel"
+            
         } else {
             self.editButton.title = "Select"
             addButton.title = "Add"
             
-            let paths = (collectionView?.indexPathsForSelectedItems())! as [NSIndexPath]
-                let sortedArray = paths.sort() {$0.row > $1.row}
-                
-                for index in sortedArray {
-                    
-                    seatArray.removeAtIndex(index.row)
+            let paths = (collectionView?.indexPathsForSelectedItems)! as [IndexPath]
+            let sortedArray = paths.sorted() {($0 as NSIndexPath).row > ($1 as NSIndexPath).row}
+            
+            for index in sortedArray {
+                let person = people[(index as NSIndexPath).row]
+                coreDataManager.deletePerson(activeClassKey: activeClassKey, studentKey: person.key!)
+                people.remove(at: (index as NSIndexPath).row)
+                print ("People Removed")
             }
         }
         collectionView?.reloadData()
     }
 }
+
+
+
+
+
 extension DeskViewController: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         var collectionViewSize = collectionView.frame.size
         collectionViewSize.width = collectionViewSize.width/8.0  //Display Three elements in a row.

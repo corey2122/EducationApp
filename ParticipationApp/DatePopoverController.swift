@@ -9,7 +9,7 @@
 import UIKit
 
 protocol DateDelegate {
-    func dateIsChanged(dateChosen: String)
+    func dateIsChanged(_ dateChosen: String)
 }
 
 class DatePopoverController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -20,40 +20,40 @@ class DatePopoverController: UIViewController, UITableViewDelegate, UITableViewD
     var items: [String] = ["Today", "Week", "Month", "All Time"]
     var chosen = "All Time"
     var dateDel: DateDelegate?
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let chosenFilter = defaults.objectForKey("selection") {
+        if let chosenFilter = defaults.object(forKey: "selection") {
             
             chosen = chosenFilter as! String
         }
         
-        self.dateTableView.scrollEnabled = false
+        self.dateTableView.isScrollEnabled = false
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.items.count;
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        NSUserDefaults.standardUserDefaults().setObject(items[indexPath.row], forKey: "selection")
-        NSUserDefaults.standardUserDefaults().synchronize()
-        dateDel?.dateIsChanged(items[indexPath.row])
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        UserDefaults.standard.set(items[(indexPath as NSIndexPath).row], forKey: "selection")
+        UserDefaults.standard.synchronize()
+        dateDel?.dateIsChanged(items[(indexPath as NSIndexPath).row])
         
         //load user defaults to chosen variable
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.dateTableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! DateTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.dateTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DateTableViewCell
         
-        cell.dateLabel?.text = self.items[indexPath.row]
+        cell.dateLabel?.text = self.items[(indexPath as NSIndexPath).row]
         cell.preservesSuperviewLayoutMargins = false
-        cell.separatorInset = UIEdgeInsetsZero
-        cell.layoutMargins = UIEdgeInsetsZero
-        if items[indexPath.row] == chosen {
-        cell.backgroundColor = UIColor.grayColor()
+        cell.separatorInset = UIEdgeInsets.zero
+        cell.layoutMargins = UIEdgeInsets.zero
+        if items[(indexPath as NSIndexPath).row] == chosen {
+        cell.backgroundColor = UIColor.gray
         }
         
         return cell

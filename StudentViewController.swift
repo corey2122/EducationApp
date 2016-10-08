@@ -17,20 +17,23 @@ class StudentViewController: UIViewController, UIPopoverPresentationControllerDe
     
     var editButton: Bool = false
     var isEditable: Bool = false
-    var notesTableViewDelete: NSIndexPath? = nil
-    var notesArray = ["", "", ""]
+    var notesTableViewDelete: IndexPath? = nil
+    var notesArray = [""]
+    var nameOfStudent = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let chosenFilter = defaults.objectForKey("selection") {
+        let defaults = UserDefaults.standard
+        if let chosenFilter = defaults.object(forKey: "selection") {
             self.navigationItem.title = chosenFilter as? String
         }
         
+        nameTextField.text = nameOfStudent
+
         let borderColor : UIColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
         pointsViewLabel.layer.borderWidth = 0.5
-        pointsViewLabel.layer.borderColor = borderColor.CGColor
+        pointsViewLabel.layer.borderColor = borderColor.cgColor
         pointsViewLabel.layer.cornerRadius = 5.0
         pointsViewLabel.layer.masksToBounds = true
     
@@ -47,65 +50,65 @@ class StudentViewController: UIViewController, UIPopoverPresentationControllerDe
     }
     
     // number of rows in table view
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notesArray.count
     }
     
-     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if isEditable {
             return true
         }
         return false
     }
     
-     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.Delete) {
-            notesArray.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            notesArray.remove(at: (indexPath as NSIndexPath).row)
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
         }
     }
     
     // create a cell for each table view row
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
         let borderColor : UIColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
         // create a new cell if needed or reuse an old one
-        let cell = notesTableView.dequeueReusableCellWithIdentifier("cell") as! StudentFileTableViewCell
+        let cell = notesTableView.dequeueReusableCell(withIdentifier: "cell") as! StudentFileTableViewCell
+        
+        
         if isEditable{
             cell.pointsNoteTextField.setBoarder()
             cell.noteTextView.layer.borderWidth = 2
-            cell.noteTextView.layer.borderColor = UIColor.grayColor().CGColor
+            cell.noteTextView.layer.borderColor = UIColor.gray.cgColor
             cell.noteTextView.layer.cornerRadius = 8
-            cell.noteTextView.userInteractionEnabled = true
+            cell.noteTextView.isUserInteractionEnabled = true
         } else {
             cell.pointsNoteTextField.removeBoarder()
             cell.noteTextView.layer.borderWidth = 0.5
-            cell.noteTextView.layer.borderColor = borderColor.CGColor
+            cell.noteTextView.layer.borderColor = borderColor.cgColor
             cell.noteTextView.layer.cornerRadius = 5.0
-            cell.noteTextView.userInteractionEnabled = false
+            cell.noteTextView.isUserInteractionEnabled = false
         }
         
-        cell.noteTextView.text = "The student was on task all hour. Student added participation to class and said, Walter Whitman was an American poet, essayist, and journalist. A humanist, he was a part of the transition between transcendentalism and realism, incorporating both views in his works"
-        cell.pointsNoteTextField.text = "1"
         cell.noteTextView.textColor = UIColor(red: 114 / 255,
                                           green: 114 / 255,
                                           blue: 114 / 255,
                                           alpha: 1.0)
         cell.preservesSuperviewLayoutMargins = false
-        cell.separatorInset = UIEdgeInsetsZero
-        cell.layoutMargins = UIEdgeInsetsZero
+        cell.separatorInset = UIEdgeInsets.zero
+        cell.layoutMargins = UIEdgeInsets.zero
         
+    
         return cell
     }
 
-    @IBAction func editSaveButton(sender: UIBarButtonItem) {
+    @IBAction func editSaveButton(_ sender: UIBarButtonItem) {
         editButton = !editButton //switches button ON/OFF
         if editButton {
             self.editSaveButton.title = "Save"
             textFieldActive()
         } else {
             self.editSaveButton.title = "Edit"
-//          notesTableView.editing = true
             textFieldDeactive()
         }
     }
@@ -127,37 +130,37 @@ class StudentViewController: UIViewController, UIPopoverPresentationControllerDe
         view.endEditing(true)
     }
     
-    func dateIsChanged(dateChosen: String) {
+    func dateIsChanged(_ dateChosen: String) {
         self.navigationItem.title = dateChosen
 
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "dateSegue" {
-            let popoverViewController = segue.destinationViewController as! DatePopoverController
+            let popoverViewController = segue.destination as! DatePopoverController
             popoverViewController.dateDel = self
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
     }
     
-    @IBAction func doneButton(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func doneButton(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
 extension UITextField {
     
     func setBoarder() {
-        self.userInteractionEnabled = true
+        self.isUserInteractionEnabled = true
         self.layer.cornerRadius = 8
-        self.layer.borderColor = UIColor.grayColor().CGColor
+        self.layer.borderColor = UIColor.gray.cgColor
         self.layer.borderWidth = 2
     }
     func removeBoarder() {
-        self.userInteractionEnabled = false
-        self.layer.borderColor = UIColor.clearColor().CGColor
+        self.isUserInteractionEnabled = false
+        self.layer.borderColor = UIColor.clear.cgColor
     }
 }

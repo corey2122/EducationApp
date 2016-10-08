@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		110161211D96B0AC00474688 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110161201D96B0AC00474688 /* CoreDataManager.swift */; };
+		110161261D96B1C900474688 /* ClassHour+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110161221D96B1C900474688 /* ClassHour+CoreDataClass.swift */; };
+		110161271D96B1C900474688 /* ClassHour+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110161231D96B1C900474688 /* ClassHour+CoreDataProperties.swift */; };
+		111C6F191DA3E1A10085DA88 /* Person+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111C6F151DA3E1A10085DA88 /* Person+CoreDataClass.swift */; };
+		111C6F1A1DA3E1A10085DA88 /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111C6F161DA3E1A10085DA88 /* Person+CoreDataProperties.swift */; };
+		111C6F1B1DA3E1A10085DA88 /* Selected+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111C6F171DA3E1A10085DA88 /* Selected+CoreDataClass.swift */; };
+		111C6F1C1DA3E1A10085DA88 /* Selected+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111C6F181DA3E1A10085DA88 /* Selected+CoreDataProperties.swift */; };
 		11262EAF1D41513B00F1C0A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11262EAE1D41513B00F1C0A9 /* AppDelegate.swift */; };
 		11262EB41D41513B00F1C0A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11262EB21D41513B00F1C0A9 /* Main.storyboard */; };
 		11262EB71D41513B00F1C0A9 /* ParticipationApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11262EB51D41513B00F1C0A9 /* ParticipationApp.xcdatamodeld */; };
@@ -44,6 +51,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		110161201D96B0AC00474688 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		110161221D96B1C900474688 /* ClassHour+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ClassHour+CoreDataClass.swift"; path = "../ClassHour+CoreDataClass.swift"; sourceTree = "<group>"; };
+		110161231D96B1C900474688 /* ClassHour+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ClassHour+CoreDataProperties.swift"; path = "../ClassHour+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		111C6F151DA3E1A10085DA88 /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Person+CoreDataClass.swift"; path = "../Person+CoreDataClass.swift"; sourceTree = "<group>"; };
+		111C6F161DA3E1A10085DA88 /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Person+CoreDataProperties.swift"; path = "../Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		111C6F171DA3E1A10085DA88 /* Selected+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Selected+CoreDataClass.swift"; path = "../Selected+CoreDataClass.swift"; sourceTree = "<group>"; };
+		111C6F181DA3E1A10085DA88 /* Selected+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Selected+CoreDataProperties.swift"; path = "../Selected+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		11262EAB1D41513A00F1C0A9 /* ParticipationApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParticipationApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11262EAE1D41513B00F1C0A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11262EB31D41513B00F1C0A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -159,6 +173,13 @@
 		1188BAFF1D46B2C500E0933D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				110161221D96B1C900474688 /* ClassHour+CoreDataClass.swift */,
+				110161231D96B1C900474688 /* ClassHour+CoreDataProperties.swift */,
+				110161201D96B0AC00474688 /* CoreDataManager.swift */,
+				111C6F151DA3E1A10085DA88 /* Person+CoreDataClass.swift */,
+				111C6F161DA3E1A10085DA88 /* Person+CoreDataProperties.swift */,
+				111C6F171DA3E1A10085DA88 /* Selected+CoreDataClass.swift */,
+				111C6F181DA3E1A10085DA88 /* Selected+CoreDataProperties.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -264,13 +285,16 @@
 					11262EAA1D41513A00F1C0A9 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 4SM7NHSWAW;
+						LastSwiftMigration = 0800;
 					};
 					11262EC11D41513B00F1C0A9 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 11262EAA1D41513A00F1C0A9;
 					};
 					11262ECC1D41513B00F1C0A9 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 11262EAA1D41513A00F1C0A9;
 					};
 				};
@@ -327,9 +351,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				111C6F191DA3E1A10085DA88 /* Person+CoreDataClass.swift in Sources */,
 				118734821D454E3B0078C503 /* ClassCell.swift in Sources */,
 				11F42A731D43FE2D002B5F47 /* StudentViewController.swift in Sources */,
+				110161271D96B1C900474688 /* ClassHour+CoreDataProperties.swift in Sources */,
+				110161261D96B1C900474688 /* ClassHour+CoreDataClass.swift in Sources */,
+				111C6F1A1DA3E1A10085DA88 /* Person+CoreDataProperties.swift in Sources */,
 				11BA09AC1D551AE500707F13 /* PresentationStudentController.swift in Sources */,
+				110161211D96B0AC00474688 /* CoreDataManager.swift in Sources */,
 				11262EAF1D41513B00F1C0A9 /* AppDelegate.swift in Sources */,
 				11262EB71D41513B00F1C0A9 /* ParticipationApp.xcdatamodeld in Sources */,
 				118734841D455C530078C503 /* DeskNameCell.swift in Sources */,
@@ -338,7 +367,9 @@
 				11ADEECE1D6DED90007A29E1 /* DatePopoverController.swift in Sources */,
 				11FD0DB71D42752D0040ED16 /* DeskViewController.swift in Sources */,
 				11ADEED01D6E0AAA007A29E1 /* DateTableViewCell.swift in Sources */,
+				111C6F1B1DA3E1A10085DA88 /* Selected+CoreDataClass.swift in Sources */,
 				114297171D4FEEF200E05E03 /* ColorManager.swift in Sources */,
+				111C6F1C1DA3E1A10085DA88 /* Selected+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +518,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.CJS.ParticipationApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -502,6 +534,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.CJS.ParticipationApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -514,6 +547,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.CJS.ParticipationAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ParticipationApp.app/ParticipationApp";
 			};
 			name = Debug;
@@ -526,6 +560,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.CJS.ParticipationAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ParticipationApp.app/ParticipationApp";
 			};
 			name = Release;
@@ -537,6 +572,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.CJS.ParticipationAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = ParticipationApp;
 			};
 			name = Debug;
@@ -548,6 +584,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.CJS.ParticipationAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = ParticipationApp;
 			};
 			name = Release;

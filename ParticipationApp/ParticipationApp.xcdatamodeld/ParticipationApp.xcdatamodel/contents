@@ -1,4 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="15G1004" minimumToolsVersion="Xcode 7.3" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ClassHour" representedClassName=".ClassHour" syncable="YES">
+        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="people" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Person" inverseName="classHour" inverseEntity="Person" syncable="YES"/>
+    </entity>
+    <entity name="Person" representedClassName=".Person" syncable="YES">
+        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="classHour" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ClassHour" inverseName="people" inverseEntity="ClassHour" syncable="YES"/>
+        <relationship name="studentData" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Selected" inverseName="savedData" inverseEntity="Selected" syncable="YES"/>
+    </entity>
+    <entity name="Selected" representedClassName=".Selected" syncable="YES">
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="point" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="savedData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="studentData" inverseEntity="Person" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="ClassHour" positionX="-29" positionY="-97" width="128" height="88"/>
+        <element name="Person" positionX="178" positionY="-21" width="128" height="105"/>
+        <element name="Selected" positionX="72" positionY="-27" width="128" height="120"/>
+    </elements>
 </model>
