@@ -26,11 +26,13 @@ class MasterViewController: UICollectionViewController {
 
         flow = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
         flow.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10)
-        dataArray = coreDataManager.fetchClass()
     }
  
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        coreDataManager = CoreDataManager()
+        dataArray = coreDataManager.fetchClass()
+        self.collectionView!.reloadData()
     }
 
 //    func rotated() {
@@ -52,13 +54,11 @@ class MasterViewController: UICollectionViewController {
 //        
 //       self.collectionView?.reloadData()
 //    }
-//
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.dataArray.count
     }
     
-    //cell information
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ClassCell
         let classHour = dataArray[(indexPath as NSIndexPath).row]
@@ -138,7 +138,6 @@ extension MasterViewController {
             
             let paths = (collectionView?.indexPathsForSelectedItems)! as [IndexPath]
             let sortedArray = paths.sorted() {($0 as NSIndexPath).row > ($1 as NSIndexPath).row}
-           
             
             for index in sortedArray {
                 let person = dataArray[(index as NSIndexPath).row]
@@ -217,13 +216,15 @@ extension MasterViewController {
         }
     }
 }
-    extension MasterViewController: UICollectionViewDelegateFlowLayout{
+
+extension MasterViewController: UICollectionViewDelegateFlowLayout{
+    
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             
-            func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
-            {
-                var collectionViewSize = collectionView.frame.size
-                collectionViewSize.width = collectionViewSize.width/3.0 - 30.0 //Display Three elements in a row.
-                collectionViewSize.height = collectionViewSize.height/4.0 - 30.0
-                return collectionViewSize
+            var collectionViewSize = collectionView.frame.size
+            collectionViewSize.width = collectionViewSize.width/3.0 - 30.0
+            //Display Three elements in a row.
+            collectionViewSize.height = collectionViewSize.height/4.0 - 30.0
+            return collectionViewSize
             }
     }

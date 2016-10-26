@@ -2,12 +2,13 @@
 //  Person+CoreDataProperties.swift
 //  ParticipationApp
 //
-//  Created by CJS  on 10/4/16.
+//  Created by CJS  on 10/10/16.
 //  Copyright © 2016 CJS . All rights reserved.
 //
 
 import Foundation
 import CoreData
+ 
 
 extension Person {
 
@@ -17,6 +18,7 @@ extension Person {
 
     @NSManaged public var key: String?
     @NSManaged public var name: String?
+    @NSManaged public var studentDtate: NSDate?
     @NSManaged public var classHour: ClassHour?
     @NSManaged public var studentData: NSSet?
 

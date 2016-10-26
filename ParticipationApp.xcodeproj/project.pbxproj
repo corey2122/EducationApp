@@ -8,12 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		110161211D96B0AC00474688 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110161201D96B0AC00474688 /* CoreDataManager.swift */; };
-		110161261D96B1C900474688 /* ClassHour+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110161221D96B1C900474688 /* ClassHour+CoreDataClass.swift */; };
-		110161271D96B1C900474688 /* ClassHour+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110161231D96B1C900474688 /* ClassHour+CoreDataProperties.swift */; };
-		111C6F191DA3E1A10085DA88 /* Person+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111C6F151DA3E1A10085DA88 /* Person+CoreDataClass.swift */; };
-		111C6F1A1DA3E1A10085DA88 /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111C6F161DA3E1A10085DA88 /* Person+CoreDataProperties.swift */; };
-		111C6F1B1DA3E1A10085DA88 /* Selected+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111C6F171DA3E1A10085DA88 /* Selected+CoreDataClass.swift */; };
-		111C6F1C1DA3E1A10085DA88 /* Selected+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111C6F181DA3E1A10085DA88 /* Selected+CoreDataProperties.swift */; };
 		11262EAF1D41513B00F1C0A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11262EAE1D41513B00F1C0A9 /* AppDelegate.swift */; };
 		11262EB41D41513B00F1C0A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11262EB21D41513B00F1C0A9 /* Main.storyboard */; };
 		11262EB71D41513B00F1C0A9 /* ParticipationApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11262EB51D41513B00F1C0A9 /* ParticipationApp.xcdatamodeld */; };
@@ -26,10 +20,17 @@
 		11438D431D707C9200ADBAD9 /* StudentFileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11438D421D707C9200ADBAD9 /* StudentFileTableViewCell.swift */; };
 		118734821D454E3B0078C503 /* ClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118734811D454E3B0078C503 /* ClassCell.swift */; };
 		118734841D455C530078C503 /* DeskNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118734831D455C530078C503 /* DeskNameCell.swift */; };
+		119A96E41DABD07F00647AD1 /* Selected+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A96DE1DABD07F00647AD1 /* Selected+CoreDataClass.swift */; };
+		119A96E51DABD07F00647AD1 /* Selected+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A96DF1DABD07F00647AD1 /* Selected+CoreDataProperties.swift */; };
+		119A96E61DABD07F00647AD1 /* Person+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A96E01DABD07F00647AD1 /* Person+CoreDataClass.swift */; };
+		119A96E71DABD07F00647AD1 /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A96E11DABD07F00647AD1 /* Person+CoreDataProperties.swift */; };
+		119A96E81DABD07F00647AD1 /* ClassHour+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A96E21DABD07F00647AD1 /* ClassHour+CoreDataClass.swift */; };
+		119A96E91DABD07F00647AD1 /* ClassHour+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119A96E31DABD07F00647AD1 /* ClassHour+CoreDataProperties.swift */; };
 		11ADEECE1D6DED90007A29E1 /* DatePopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ADEECD1D6DED90007A29E1 /* DatePopoverController.swift */; };
 		11ADEED01D6E0AAA007A29E1 /* DateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ADEECF1D6E0AAA007A29E1 /* DateTableViewCell.swift */; };
 		11BA09AC1D551AE500707F13 /* PresentationStudentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BA09AB1D551AE500707F13 /* PresentationStudentController.swift */; };
 		11F42A731D43FE2D002B5F47 /* StudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F42A721D43FE2D002B5F47 /* StudentViewController.swift */; };
+		11F629F31DB906E6000B0742 /* KeyboardLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F629F21DB906E6000B0742 /* KeyboardLayoutConstraint.swift */; };
 		11FD0DB71D42752D0040ED16 /* DeskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FD0DB61D42752D0040ED16 /* DeskViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,12 +53,6 @@
 
 /* Begin PBXFileReference section */
 		110161201D96B0AC00474688 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		110161221D96B1C900474688 /* ClassHour+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ClassHour+CoreDataClass.swift"; path = "../ClassHour+CoreDataClass.swift"; sourceTree = "<group>"; };
-		110161231D96B1C900474688 /* ClassHour+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ClassHour+CoreDataProperties.swift"; path = "../ClassHour+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		111C6F151DA3E1A10085DA88 /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Person+CoreDataClass.swift"; path = "../Person+CoreDataClass.swift"; sourceTree = "<group>"; };
-		111C6F161DA3E1A10085DA88 /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Person+CoreDataProperties.swift"; path = "../Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		111C6F171DA3E1A10085DA88 /* Selected+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Selected+CoreDataClass.swift"; path = "../Selected+CoreDataClass.swift"; sourceTree = "<group>"; };
-		111C6F181DA3E1A10085DA88 /* Selected+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Selected+CoreDataProperties.swift"; path = "../Selected+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		11262EAB1D41513A00F1C0A9 /* ParticipationApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParticipationApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11262EAE1D41513B00F1C0A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11262EB31D41513B00F1C0A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -76,10 +71,17 @@
 		11438D421D707C9200ADBAD9 /* StudentFileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudentFileTableViewCell.swift; path = ../StudentFileTableViewCell.swift; sourceTree = "<group>"; };
 		118734811D454E3B0078C503 /* ClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 		118734831D455C530078C503 /* DeskNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeskNameCell.swift; sourceTree = "<group>"; };
+		119A96DE1DABD07F00647AD1 /* Selected+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Selected+CoreDataClass.swift"; path = "../Selected+CoreDataClass.swift"; sourceTree = "<group>"; };
+		119A96DF1DABD07F00647AD1 /* Selected+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Selected+CoreDataProperties.swift"; path = "../Selected+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		119A96E01DABD07F00647AD1 /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Person+CoreDataClass.swift"; path = "../Person+CoreDataClass.swift"; sourceTree = "<group>"; };
+		119A96E11DABD07F00647AD1 /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Person+CoreDataProperties.swift"; path = "../Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		119A96E21DABD07F00647AD1 /* ClassHour+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ClassHour+CoreDataClass.swift"; path = "../ClassHour+CoreDataClass.swift"; sourceTree = "<group>"; };
+		119A96E31DABD07F00647AD1 /* ClassHour+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ClassHour+CoreDataProperties.swift"; path = "../ClassHour+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		11ADEECD1D6DED90007A29E1 /* DatePopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePopoverController.swift; sourceTree = "<group>"; };
 		11ADEECF1D6E0AAA007A29E1 /* DateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTableViewCell.swift; sourceTree = "<group>"; };
 		11BA09AB1D551AE500707F13 /* PresentationStudentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationStudentController.swift; sourceTree = "<group>"; };
 		11F42A721D43FE2D002B5F47 /* StudentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudentViewController.swift; path = ../StudentViewController.swift; sourceTree = "<group>"; };
+		11F629F21DB906E6000B0742 /* KeyboardLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutConstraint.swift; sourceTree = "<group>"; };
 		11FD0DB61D42752D0040ED16 /* DeskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeskViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				114297161D4FEEF200E05E03 /* ColorManager.swift */,
+				11F629F21DB906E6000B0742 /* KeyboardLayoutConstraint.swift */,
 			);
 			name = Supporting;
 			sourceTree = "<group>";
@@ -173,13 +176,13 @@
 		1188BAFF1D46B2C500E0933D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				110161221D96B1C900474688 /* ClassHour+CoreDataClass.swift */,
-				110161231D96B1C900474688 /* ClassHour+CoreDataProperties.swift */,
+				119A96E21DABD07F00647AD1 /* ClassHour+CoreDataClass.swift */,
+				119A96E31DABD07F00647AD1 /* ClassHour+CoreDataProperties.swift */,
 				110161201D96B0AC00474688 /* CoreDataManager.swift */,
-				111C6F151DA3E1A10085DA88 /* Person+CoreDataClass.swift */,
-				111C6F161DA3E1A10085DA88 /* Person+CoreDataProperties.swift */,
-				111C6F171DA3E1A10085DA88 /* Selected+CoreDataClass.swift */,
-				111C6F181DA3E1A10085DA88 /* Selected+CoreDataProperties.swift */,
+				119A96E01DABD07F00647AD1 /* Person+CoreDataClass.swift */,
+				119A96E11DABD07F00647AD1 /* Person+CoreDataProperties.swift */,
+				119A96DE1DABD07F00647AD1 /* Selected+CoreDataClass.swift */,
+				119A96DF1DABD07F00647AD1 /* Selected+CoreDataProperties.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -351,25 +354,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				111C6F191DA3E1A10085DA88 /* Person+CoreDataClass.swift in Sources */,
+				119A96E61DABD07F00647AD1 /* Person+CoreDataClass.swift in Sources */,
+				119A96E51DABD07F00647AD1 /* Selected+CoreDataProperties.swift in Sources */,
 				118734821D454E3B0078C503 /* ClassCell.swift in Sources */,
 				11F42A731D43FE2D002B5F47 /* StudentViewController.swift in Sources */,
-				110161271D96B1C900474688 /* ClassHour+CoreDataProperties.swift in Sources */,
-				110161261D96B1C900474688 /* ClassHour+CoreDataClass.swift in Sources */,
-				111C6F1A1DA3E1A10085DA88 /* Person+CoreDataProperties.swift in Sources */,
 				11BA09AC1D551AE500707F13 /* PresentationStudentController.swift in Sources */,
+				119A96E71DABD07F00647AD1 /* Person+CoreDataProperties.swift in Sources */,
+				119A96E81DABD07F00647AD1 /* ClassHour+CoreDataClass.swift in Sources */,
 				110161211D96B0AC00474688 /* CoreDataManager.swift in Sources */,
 				11262EAF1D41513B00F1C0A9 /* AppDelegate.swift in Sources */,
 				11262EB71D41513B00F1C0A9 /* ParticipationApp.xcdatamodeld in Sources */,
 				118734841D455C530078C503 /* DeskNameCell.swift in Sources */,
 				11262EE01D415C7B00F1C0A9 /* MasterViewController.swift in Sources */,
 				11438D431D707C9200ADBAD9 /* StudentFileTableViewCell.swift in Sources */,
+				11F629F31DB906E6000B0742 /* KeyboardLayoutConstraint.swift in Sources */,
 				11ADEECE1D6DED90007A29E1 /* DatePopoverController.swift in Sources */,
 				11FD0DB71D42752D0040ED16 /* DeskViewController.swift in Sources */,
 				11ADEED01D6E0AAA007A29E1 /* DateTableViewCell.swift in Sources */,
-				111C6F1B1DA3E1A10085DA88 /* Selected+CoreDataClass.swift in Sources */,
+				119A96E91DABD07F00647AD1 /* ClassHour+CoreDataProperties.swift in Sources */,
+				119A96E41DABD07F00647AD1 /* Selected+CoreDataClass.swift in Sources */,
 				114297171D4FEEF200E05E03 /* ColorManager.swift in Sources */,
-				111C6F1C1DA3E1A10085DA88 /* Selected+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

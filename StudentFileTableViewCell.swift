@@ -12,6 +12,7 @@ class StudentFileTableViewCell: UITableViewCell {
 
     @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var pointsNoteTextField: UITextField!
+    @IBOutlet weak var dateNoteLabel: UILabel!
 }
 
 

@@ -17,10 +17,8 @@ class CoreDataManager {
     func saveClassHour(_ name: String, key: String) {
         let entity =  NSEntityDescription.entity(forEntityName: "ClassHour",
                                                  in:managedObjectContext)
-        
         let classHour = NSManagedObject(entity: entity!,
                                         insertInto: managedObjectContext)
-        
         classHour.setValue(name, forKey: "name")
         classHour.setValue(key, forKey: "key")
         
@@ -28,10 +26,8 @@ class CoreDataManager {
     }
     
     func fetchClass() -> [NSManagedObject] {
-    //1
         var managedObjectArray = [NSManagedObject]()
         let fetchRequest = NSFetchRequest<ClassHour>(entityName: "ClassHour")
-
         do {
             managedObjectArray = try self.managedObjectContext.fetch(fetchRequest)
         } catch {
@@ -45,13 +41,18 @@ class CoreDataManager {
     if let fKey = obj.value(forKey:"key"){
     if fKey as! String == _key {
         managedObjectContext.delete(obj)
-        try!managedObjectContext.save()
+        do {
+            try managedObjectContext.save()
+        } catch {
+            let fetchError = error as NSError
+        }
                 }
             }
         }
     }
+    
 //  Core Data: Desk View
-    func addStudentsToClass(_ name: String, key: String, activeClassKey: String?) {
+    func addStudentsToClass(_ name: String, studentDtate: NSDate, key: String, activeClassKey: String?) {
         print (key, "key")
         print(activeClassKey, "activeClassKey")
         for file in fetchClass() {
@@ -63,6 +64,7 @@ class CoreDataManager {
           
                     newPerson.setValue(key, forKey: "key")
                     newPerson.setValue(name, forKey: "name")
+                    newPerson.setValue(studentDtate, forKey: "studentDtate")
                     
                     print("made it here")
                     
@@ -72,20 +74,19 @@ class CoreDataManager {
                     save(file)
                 }
             }
+        }
     }
-}
 
-    func fetchStudent(activeClassKey: String?) -> [Person]{
+    func fetchStudent(activeClassKey: String?) -> [Person] {
         var managedObjectArray = Set<Person>()
         
         for file in fetchClass() {
             if let fKey = file.value(forKey: "key"){
                 if fKey as? String == activeClassKey {
-                managedObjectArray = file.value(forKey: "people") as! Set<Person>
+                    managedObjectArray = file.value(forKey: "people") as! Set<Person>
                 }
             }
         }
-
         return Array(managedObjectArray)
     }
     
@@ -93,8 +94,14 @@ class CoreDataManager {
         for student in fetchStudent(activeClassKey: activeClassKey) {
             if let fkey = student.key { 
                 if fkey == studentKey {
-                managedObjectContext.delete(student)
-                try!managedObjectContext.save()
+                    print ("this was deleted \(student.key)")
+
+                    do {
+                        managedObjectContext.delete(student)
+                        try managedObjectContext.save()
+                    } catch {
+                        fatalError("Could not delete person")
+                    }
                 }
             }
         }
@@ -104,9 +111,9 @@ class CoreDataManager {
     
     func addDataToStudent (comment: String, studentKey: String, key: String, activeClassKey: String, commentDate: NSDate, point: NSNumber) {
         for studentInfo in fetchStudent(activeClassKey: activeClassKey) {
-            if let sKey = studentInfo.value(forKey: "key"){
+            if let sKey = studentInfo.key {
                 print ("sKey", sKey)
-                if sKey as? String == key {
+                if sKey == key {
                     let entityData = NSEntityDescription.entity (forEntityName: "Selected", in: managedObjectContext)
                     let newData = NSManagedObject(entity: entityData!, insertInto: managedObjectContext)
                     
@@ -131,22 +138,84 @@ class CoreDataManager {
     
 // Core Data: Student File 
     
-    func fetchStudentData(studentKey: String, key: String, activeClassKey: String?) -> [Selected]{
+    func fetchStudentData(key: String, activeClassKey: String?) -> [Selected]{
         var managedObjectArray = Set<Selected>()
 
         for studentInfo in fetchStudent(activeClassKey: activeClassKey) {
             if let sKey = studentInfo.value(forKey: "key"){
                 print ("sKey", sKey)
                 if sKey as? String == key {
-                   
-                        managedObjectArray = studentInfo.value(forKey: "studentData") as! Set<Selected>
-
+                    managedObjectArray = studentInfo.value(forKey: "studentData") as! Set<Selected>
+                }
             }
-        }
         }
         return Array(managedObjectArray)
     }
     
+// Core Data: Student File Edit-save, delete -save.
+    func deleteStudentInfo (activeClassKey: String, studentKey: String, key: String) {
+        for studentInfo in fetchStudentData(key: studentKey, activeClassKey: activeClassKey) {
+            print(studentKey)
+            print(activeClassKey)
+            
+            if let fkey = studentInfo.key {
+                if fkey == key {
+                    managedObjectContext.delete(studentInfo)
+                    try!managedObjectContext.save()
+                }
+            }
+        }
+    }
+    
+    func updateStudentName(name: String, activeClassKey: String, key: String){
+            for student in fetchStudent(activeClassKey: activeClassKey) {
+                print("key here")
+                    if key == student.key {
+                        student.setValue(name, forKey: "name")
+                        
+                        print("made it here11", name)
+                        save(student)
+            }
+        }
+    }
+    
+    func updateStudentData(comment: String, studentKey: String, key: String, activeClassKey: String, point: NSNumber) {
+        
+        for studentInfo in fetchStudent(activeClassKey: activeClassKey) {
+            if let sKey = studentInfo.key, sKey == studentKey {
+                print ("student key", sKey)
+                
+                if let studentUpdateArray = studentInfo.studentData as? Set<Selected> {
+                    print("studentUpdateArray")
+                    for studentUpdate in studentUpdateArray {
+                        if let selectedKey = studentUpdate.key, selectedKey == key {
+                            studentUpdate.setValue(comment, forKey: "comment")
+                            studentUpdate.setValue(point, forKey: "point")
+        
+                            print("made it to addData", comment)
+                            print(comment)
+                            
+                            save(studentInfo)
+                        }
+                    }
+                }
+            }
+        }
+
+        for studentUpdate in fetchStudentData(key: studentKey, activeClassKey: activeClassKey) {
+            if let sKey = studentUpdate.value(forKey: "key"){
+                print ("sKey", sKey)
+                if sKey as? String == key {
+
+                    print("made it to the new comment data ")
+                    print(comment)
+                    print(point)
+  
+                }
+            }
+        }
+    }
+
     func save(_ managedObject: NSManagedObject) {
         do {
             try managedObject.managedObjectContext?.save()
@@ -156,4 +225,3 @@ class CoreDataManager {
         }
     }
 }
-

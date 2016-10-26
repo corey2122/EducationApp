@@ -25,7 +25,6 @@ class DatePopoverController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         if let chosenFilter = defaults.object(forKey: "selection") {
-            
             chosen = chosenFilter as! String
         }
         
@@ -47,7 +46,6 @@ class DatePopoverController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.dateTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DateTableViewCell
-        
         cell.dateLabel?.text = self.items[(indexPath as NSIndexPath).row]
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero

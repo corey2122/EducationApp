@@ -2,13 +2,13 @@
 //  Selected+CoreDataProperties.swift
 //  ParticipationApp
 //
-//  Created by CJS  on 10/4/16.
+//  Created by CJS  on 10/10/16.
 //  Copyright © 2016 CJS . All rights reserved.
 //
 
 import Foundation
 import CoreData
-
+ 
 
 extension Selected {
 

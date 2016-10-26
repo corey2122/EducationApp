@@ -2,13 +2,12 @@
 //  ClassHour+CoreDataProperties.swift
 //  ParticipationApp
 //
-//  Created by CJS  on 9/24/16.
+//  Created by CJS  on 10/10/16.
 //  Copyright © 2016 CJS . All rights reserved.
 //
 
 import Foundation
 import CoreData
- 
 
 extension ClassHour {
 
@@ -16,8 +15,8 @@ extension ClassHour {
         return NSFetchRequest<ClassHour>(entityName: "ClassHour");
     }
 
-    @NSManaged public var name: String?
     @NSManaged public var key: String?
+    @NSManaged public var name: String?
     @NSManaged public var people: NSSet?
 
 }

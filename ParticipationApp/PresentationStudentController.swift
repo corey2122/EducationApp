@@ -41,7 +41,6 @@ class PresentationStudentController: UIViewController {
         print ("activeClassKeyDeskView", activeClassKey)
         print ("classKeyKey", key)
         
-        
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 25)!]
         if let sName = studentName {
             self.navigationItem.title = sName
